@@ -1,4 +1,4 @@
-=generate-utility($utility, $infix, $forceDir)
+=generate-utility($utility, $infix)
   $values: map-get($utility, values)
 
   // If the values are a list or string, convert it into a map
@@ -27,15 +27,8 @@
         @else
           @error 'Only RTL and LTR are supported'
     @else
-      @if $forceDir == 'ltr'
-        .v-application--is-ltr
-          +generate-utility-body($utility, $properties, $value, $infix)
-      @else if $forceDir == 'rtl'
-        .v-application--is-rtl
-          +generate-utility-body($utility, $properties, $value, $infix)
-      @else
-        .v-application
-          +generate-utility-body($utility, $properties, $value, $infix)
+      .v-application
+        +generate-utility-body($utility, $properties, $value, $infix)
 
 =generate-utility-body($utility, $properties, $value, $infix)
   // Use custom class if present

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import Vuetify from '../framework'
 
 function createMessage (message: string, vm?: any, parent?: any): string | void {

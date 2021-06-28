@@ -189,7 +189,7 @@ export default mixins<options &
     },
     onDragMove (e: MouseEvent | TouchEvent) {
       e.preventDefault()
-      if ((!this.isDragging && e.type !== 'click') || !this.$refs.clock) return
+      if (!this.isDragging && e.type !== 'click') return
 
       const { width, top, left } = this.$refs.clock.getBoundingClientRect()
       const { width: innerWidth } = this.$refs.innerClock.getBoundingClientRect()

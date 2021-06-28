@@ -48,17 +48,6 @@ export default Vue.extend({
 
   render (h, { props, data, listeners }): VNode {
     const children = []
-    let icon = props.offIcon
-    if (props.indeterminate) icon = props.indeterminateIcon
-    else if (props.value) icon = props.onIcon
-
-    children.push(h(VIcon, Colorable.options.methods.setTextColor(props.value && props.color, {
-      props: {
-        disabled: props.disabled,
-        dark: props.dark,
-        light: props.light,
-      },
-    }), icon))
 
     if (props.ripple && !props.disabled) {
       const ripple = h('div', Colorable.options.methods.setTextColor(props.color, {
@@ -72,12 +61,26 @@ export default Vue.extend({
       children.push(ripple)
     }
 
+    let icon = props.offIcon
+    if (props.indeterminate) icon = props.indeterminateIcon
+    else if (props.value) icon = props.onIcon
+
+    children.push(h(VIcon, Colorable.options.methods.setTextColor(props.value && props.color, {
+      props: {
+        disabled: props.disabled,
+        dark: props.dark,
+        light: props.light,
+      },
+    }), icon))
+
+    const classes = {
+      'v-simple-checkbox': true,
+      'v-simple-checkbox--disabled': props.disabled,
+    }
+
     return h('div',
       mergeData(data, {
-        class: {
-          'v-simple-checkbox': true,
-          'v-simple-checkbox--disabled': props.disabled,
-        },
+        class: classes,
         on: {
           click: (e: MouseEvent) => {
             e.stopPropagation()
@@ -87,8 +90,6 @@ export default Vue.extend({
             }
           },
         },
-      }), [
-        h('div', { staticClass: 'v-input--selection-controls__input' }, children),
-      ])
+      }), children)
   },
 })

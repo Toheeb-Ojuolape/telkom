@@ -148,9 +148,9 @@ function genHandler (handler: ASTElementHandler | Array<ASTElementHandler>): str
       code += genModifierCode
     }
     const handlerCode = isMethodPath
-      ? `return ${handler.value}.apply(null, arguments)`
+      ? `return ${handler.value}($event)`
       : isFunctionExpression
-        ? `return (${handler.value}).apply(null, arguments)`
+        ? `return (${handler.value})($event)`
         : isFunctionInvocation
           ? `return ${handler.value}`
           : handler.value

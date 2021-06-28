@@ -1,9 +1,6 @@
 // Styles
 import './VProgressCircular.sass'
 
-// Directives
-import intersect from '../../directives/intersect'
-
 // Mixins
 import Colorable from '../../mixins/colorable'
 
@@ -16,8 +13,6 @@ import { VNode, VNodeChildren } from 'vue'
 /* @vue/component */
 export default Colorable.extend({
   name: 'v-progress-circular',
-
-  directives: { intersect },
 
   props: {
     button: Boolean,
@@ -42,7 +37,6 @@ export default Colorable.extend({
 
   data: () => ({
     radius: 20,
-    isVisible: true,
   }),
 
   computed: {
@@ -56,7 +50,6 @@ export default Colorable.extend({
 
     classes (): object {
       return {
-        'v-progress-circular--visible': this.isVisible,
         'v-progress-circular--indeterminate': this.indeterminate,
         'v-progress-circular--button': this.button,
       }
@@ -138,9 +131,6 @@ export default Colorable.extend({
         staticClass: 'v-progress-circular__info',
       }, this.$slots.default)
     },
-    onObserve (entries: IntersectionObserverEntry[], observer: IntersectionObserver, isIntersecting: boolean) {
-      this.isVisible = isIntersecting
-    },
   },
 
   render (h): VNode {
@@ -153,10 +143,6 @@ export default Colorable.extend({
         'aria-valuenow': this.indeterminate ? undefined : this.normalizedValue,
       },
       class: this.classes,
-      directives: [{
-        name: 'intersect',
-        value: this.onObserve,
-      }],
       style: this.styles,
       on: this.$listeners,
     }), [

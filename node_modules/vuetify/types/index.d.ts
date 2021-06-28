@@ -16,7 +16,7 @@ import {
 } from './services/presets'
 
 // Service Options
-import { GoToOptions, VuetifyGoToTarget } from './services/goto'
+import { GoToOptions } from './services/goto'
 
 export default class Vuetify {
   constructor (preset?: Partial<UserVuetifyPreset>)
@@ -48,7 +48,7 @@ export interface VuetifyUseOptions {
 
 export interface Framework {
   readonly breakpoint: Breakpoint
-  readonly goTo: (target: VuetifyGoToTarget, options?: GoToOptions) => Promise<number>
+  readonly goTo: <T extends string | number | HTMLElement | Vue>(target: T, options?: GoToOptions) => Promise<T>
   application: Application
   theme: Theme
   icons: Icons

@@ -77,14 +77,12 @@ export default Selectable.extend({
       ]
     },
     genSwitch (): VNode {
-      const { title, ...switchAttrs } = this.attrs$
-
       return this.$createElement('div', {
         staticClass: 'v-input--selection-controls__input',
       }, [
         this.genInput('checkbox', {
           ...this.attrs,
-          ...switchAttrs,
+          ...this.attrs$,
         }),
         this.genRipple(this.setTextColor(this.validationState, {
           directives: [{

@@ -140,8 +140,6 @@ export default baseMixins.extend<options>().extend({
       }, getSlot(this, 'label') || this.label)
     },
     genRadio () {
-      const { title, ...radioAttrs } = this.attrs$
-
       return this.$createElement('div', {
         staticClass: 'v-input--selection-controls__input',
       }, [
@@ -153,7 +151,7 @@ export default baseMixins.extend<options>().extend({
         this.genInput({
           name: this.computedName,
           value: this.value,
-          ...radioAttrs,
+          ...this.attrs$,
         }),
         this.genRipple(this.setTextColor(this.rippleState)),
       ])
@@ -181,7 +179,6 @@ export default baseMixins.extend<options>().extend({
       on: mergeListeners({
         click: this.onChange,
       }, this.listeners$),
-      attrs: { title: this.attrs$.title },
     }
 
     return h('div', data, [

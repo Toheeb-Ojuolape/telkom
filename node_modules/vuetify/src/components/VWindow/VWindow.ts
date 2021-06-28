@@ -117,11 +117,8 @@ export default BaseItemGroup.extend({
   },
 
   methods: {
-    genDefaultSlot () {
-      return this.$slots.default
-    },
     genContainer (): VNode {
-      const children = [this.genDefaultSlot()]
+      const children = [this.$slots.default]
 
       if (this.showArrows) {
         children.push(this.genControlIcons())

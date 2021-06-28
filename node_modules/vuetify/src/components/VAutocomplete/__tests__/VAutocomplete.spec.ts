@@ -405,9 +405,7 @@ describe('VAutocomplete.ts', () => {
   })
 
   it('should select input text on focus', async () => {
-    const wrapper = mountFunction({
-      attachToDocument: true,
-    })
+    const wrapper = mountFunction()
     const select = jest.fn()
     wrapper.vm.$refs.input.select = select
 

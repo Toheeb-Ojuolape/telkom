@@ -75,6 +75,9 @@
     top: 0
     transition: $btn-transition
 
+  &:not(.v-btn--disabled)
+    will-change: box-shadow
+
   &:not(.v-btn--round)
     @each $name, $size in $btn-sizes
       &.v-size--#{$name}
@@ -101,10 +104,8 @@
   transition: inherit
   transition-property: opacity
 
-  // Increased specificity to overwrite in VIcon.sass
-  // iconfont css interference
-  .v-icon.v-icon--left,
-  .v-icon.v-icon--right
+  .v-icon--left,
+  .v-icon--right
     font-size: $btn-icon-font-size
     height: $btn-icon-font-size
     width: $btn-icon-font-size

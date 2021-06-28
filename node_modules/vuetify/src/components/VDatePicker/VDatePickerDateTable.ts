@@ -96,7 +96,6 @@ export default mixins(
       const prevMonthYear = this.displayedMonth ? this.displayedYear : this.displayedYear - 1
       const prevMonth = (this.displayedMonth + 11) % 12
       const firstDayFromPreviousMonth = new Date(this.displayedYear, this.displayedMonth, 0).getDate()
-      const cellsInRow = this.showWeek ? 8 : 7
 
       while (day--) {
         const date = `${prevMonthYear}-${pad(prevMonth + 1)}-${pad(firstDayFromPreviousMonth - day)}`
@@ -113,10 +112,10 @@ export default mixins(
           this.genButton(date, true, 'date', this.formatter),
         ]))
 
-        if (rows.length % cellsInRow === 0) {
+        if (rows.length % (this.showWeek ? 8 : 7) === 0) {
           children.push(this.genTR(rows))
           rows = []
-          if (this.showWeek && (day < daysInMonth || this.showAdjacentMonths)) {
+          if (this.showWeek && (day < daysInMonth)) {
             rows.push(this.genWeekNumber(this.getWeekNumber(day + 7)))
           }
         }
@@ -126,7 +125,7 @@ export default mixins(
       const nextMonth = (this.displayedMonth + 1) % 12
       let nextMonthDay = 1
 
-      while (rows.length < cellsInRow) {
+      while (rows.length < 7) {
         const date = `${nextMonthYear}-${pad(nextMonth + 1)}-${pad(nextMonthDay++)}`
 
         rows.push(this.$createElement('td', this.showAdjacentMonths ? [

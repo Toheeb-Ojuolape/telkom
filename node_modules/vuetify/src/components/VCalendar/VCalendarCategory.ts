@@ -55,14 +55,13 @@ export default VCalendarDaily.extend({
       }
     },
     genDayHeaderCategory (day: CalendarTimestamp, scope: any): VNode {
-      const headerTitle = typeof scope.category === 'object' ? scope.category.categoryName : scope.category
       return this.$createElement('div', {
         staticClass: 'v-calendar-category__column-header',
         on: this.getDefaultMouseEventHandlers(':day-category', e => {
           return this.getCategoryScope(this.getSlotScope(day), scope.category)
         }),
       }, [
-        getSlot(this, 'category', scope) || this.genDayHeaderCategoryTitle(headerTitle),
+        getSlot(this, 'category', scope) || this.genDayHeaderCategoryTitle(scope.category && scope.category.categoryName),
         getSlot(this, 'day-header', scope),
       ])
     },
@@ -72,13 +71,11 @@ export default VCalendarDaily.extend({
       }, categoryName === null ? this.categoryForInvalid : categoryName)
     },
     genDays (): VNode[] {
-      const days: VNode[] = []
-      this.days.forEach((d, j) => {
-        const day = new Array(this.parsedCategories.length || 1)
-        day.fill(d)
-        days.push(...day.map((v, i) => this.genDay(v, j, i)))
-      })
-      return days
+      const d = this.days[0]
+      let days = this.days.slice()
+      days = new Array(this.parsedCategories.length)
+      days.fill(d)
+      return days.map((v, i) => this.genDay(v, 0, i))
     },
     genDay (day: CalendarTimestamp, index: number, categoryIndex: number): VNode {
       const category = this.parsedCategories[categoryIndex]
