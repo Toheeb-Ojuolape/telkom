@@ -29,9 +29,7 @@
                 v-model="otp"
                 :counter="6"
                 maxlength="6"
-                :rules="otpRules"
                 label="Enter OTP"
-                required
             ></v-text-field>
           </v-form>
 
@@ -80,10 +78,9 @@
 
     methods: {
       validate () {
-        this.showError = false
-        if(this.$refs.form.validate()) {
+        // if(this.$refs.form.validate()) {
           this.submitOTP()
-        }
+        
       },
       cancel () {
         if (confirm('are you sure?')) {
@@ -97,24 +94,25 @@
         this.$refs.form.resetValidation()
       },
       submitOTP () {
-        this.$store.dispatch('validateOTP', {
-          otp: this.otp
-        })
-        this.interval = setInterval(() => {
-          if (this.isOtpValidationDone) {
-            clearInterval(this.interval)
-            this.processing = false
-            if (!this.$store.getters.getOTP) {
-              this.showError = true
-            }
-          }
-        }, 1000);
+        this.$store.dispatch('nextPage')
+        // this.$store.dispatch('validateOTP', {
+        //   otp: this.otp
+        // })
+        // this.interval = setInterval(() => {
+        //   if (this.isOtpValidationDone) {
+        //     clearInterval(this.interval)
+        //     this.processing = false
+        //     if (!this.$store.getters.getOTP) {
+        //       this.showError = true
+        //     }
+        //   }
+        // }, 1000);
         // if (this.$store.getters.getOTP.toString() !== this.otp) {
         //   this.showError = true
         // } else {
         //   this.showError = true
         //   // go to next page
-        //   this.$store.dispatch('nextPage')
+        //   
         // }
       }
     }

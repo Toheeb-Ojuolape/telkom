@@ -96,7 +96,6 @@
               Cancel
             </v-btn>
             <v-btn
-              :disabled="processing"
               @click="validate"
               depressed
               color="primary"
@@ -144,14 +143,14 @@ export default {
 
   methods: {
     validate() {
+       this.submitNin();
       this.showError = false;
-      if (this.$refs.form.validate()) {
-        if (this.captureDone && this.img !== 'data:,') {
-          this.submitNin();
-        } else {
-          alert("Please, capture your face first");
-        }
-      }
+      // if (this.$refs.form.validate()) {
+      //   if (this.captureDone && this.img !== 'data:,') {
+      //   } else {
+      //     alert("Please, capture your face first");
+      //   }
+      // }
     },
     cancel() {
       if (confirm("are you sure?")) {
@@ -165,20 +164,20 @@ export default {
       this.$refs.form.resetValidation();
     },
     submitNin() {
-      this.processing = true;
-      // push selfie data to store
-      this.$store.dispatch('saveSelfie', this.img)
-      this.$store.dispatch("fetchNin", {
-        nin: this.nin,
-      });
-      this.interval = setInterval(() => {
-        if (this.isNinLookupDone) {
-          clearInterval(this.interval)
-          // go to the next page
-          this.$store.dispatch("nextPage");
-          this.processing = false
-        }
-      }, 1000);
+      this.$store.dispatch("nextPage");
+      // this.processing = true;
+      // // push selfie data to store
+      // this.$store.dispatch('saveSelfie', this.img)
+      // this.$store.dispatch("fetchNin", {
+      //   nin: this.nin,
+      // });
+      // this.interval = setInterval(() => {
+      //   if (this.isNinLookupDone) {
+      //     clearInterval(this.interval)
+      //     // go to the next page
+      //     this.processing = false
+      //   }
+      // }, 1000);
     },
     onCapture() {
       if (this.renderCam) {

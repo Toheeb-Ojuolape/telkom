@@ -4,17 +4,13 @@
       <v-card class="pa-2" outlined tile>
         <v-form
           ref="form"
-          v-model="valid"
-          lazy-validation
-          onsubmit="return false"
         >
           <v-text-field
             v-model="phone"
             :counter="11"
             maxlength="11"
-            :rules="phoneRules"
+           
             label="Enter Your Phone Number"
-            required
             clearable
           ></v-text-field>
         </v-form>
@@ -43,10 +39,8 @@ export default {
 
   methods: {
     validate() {
-      if (this.$refs.form.validate()) {
-        // before going to next. generate otp
         this.phoneNext();
-      }
+      
     },
     reset() {
       this.$refs.form.reset();
